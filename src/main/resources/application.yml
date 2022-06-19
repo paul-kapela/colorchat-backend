@@ -1,0 +1,15 @@
+spring:
+  mvc.pathmatch.matching-strategy: ant_path_matcher
+  liquibase.change-log: classpath:liquibase-changelog.xml
+  cache.jcache.config: classpath:ehcache.xml
+  jpa:
+    hibernate.ddl-auto: none
+    show-sql: true
+  datasource:
+    hikari:
+      connection-timeout: 20000
+      maximum-pool-size: 5
+    url: jdbc:postgresql://localhost:5432/colorchat
+    username: colorchat
+    password: colorchat
+

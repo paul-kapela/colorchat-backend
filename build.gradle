@@ -28,10 +28,24 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-validation'
 	implementation 'org.springframework.boot:spring-boot-devtools'
 
+	implementation 'org.liquibase:liquibase-core'
+	implementation 'org.ehcache:ehcache:3.10.0'
+	implementation 'javax.cache:cache-api:1.1.1'
+
+	implementation 'io.springfox:springfox-swagger-ui:3.0.0'
+	implementation 'io.springfox:springfox-swagger2:3.0.0'
+	implementation 'io.springfox:springfox-boot-starter:3.0.0'
+
+	implementation 'org.mapstruct:mapstruct:1.5.1.Final'
+
+	runtimeOnly 'org.postgresql:postgresql'
+
 	compileOnly 'org.projectlombok:lombok'
 	developmentOnly 'org.springframework.boot:spring-boot-devtools'
-	runtimeOnly 'org.postgresql:postgresql'
+
 	annotationProcessor 'org.projectlombok:lombok'
+	annotationProcessor 'org.mapstruct:mapstruct-processor:1.5.1.Final'
+
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	testImplementation 'org.springframework.security:spring-security-test'
 }
