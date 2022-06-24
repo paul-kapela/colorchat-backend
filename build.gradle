@@ -24,6 +24,7 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-security'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	implementation 'org.springframework.boot:spring-boot-starter-websocket'
+	implementation 'org.springframework.boot:spring-boot-starter-oauth2-resource-server'
 	implementation 'org.springframework.boot:spring-boot-starter-oauth2-client'
 	implementation 'org.springframework.boot:spring-boot-starter-validation'
 	implementation 'org.springframework.boot:spring-boot-devtools'
@@ -31,6 +32,7 @@ dependencies {
 	implementation 'org.liquibase:liquibase-core'
 	implementation 'org.ehcache:ehcache:3.10.0'
 	implementation 'javax.cache:cache-api:1.1.1'
+	implementation 'com.nimbusds:nimbus-jose-jwt:9.23'
 
 	implementation 'io.springfox:springfox-swagger-ui:3.0.0'
 	implementation 'io.springfox:springfox-swagger2:3.0.0'
