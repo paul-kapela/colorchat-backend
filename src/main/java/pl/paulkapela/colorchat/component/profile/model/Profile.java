@@ -12,12 +12,9 @@ import javax.validation.constraints.Size;
 public class Profile {
 
     @Id
-    @NotNull
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
 
-    @Size(min = 3, max = 30)
-    @NotNull
     private String username;
 
     @Size(max = 300)
