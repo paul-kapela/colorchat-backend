@@ -15,7 +15,8 @@ public class Message {
 
     @Id
     @NotNull
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "message_generator")
+    @SequenceGenerator(name = "message_generator", sequenceName = "message_id_seq", allocationSize = 1)
     private Long id;
 
     @Size(max = 20000)

@@ -12,7 +12,8 @@ import javax.validation.constraints.Size;
 public class Profile {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "profile_generator")
+    @SequenceGenerator(name = "profile_generator", sequenceName = "profile_id_seq", allocationSize = 1)
     private Long id;
 
     private String username;

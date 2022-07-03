@@ -15,7 +15,8 @@ public class Topic {
 
     @Id
     @NotNull
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "topic_generator")
+    @SequenceGenerator(name = "topic_generator", sequenceName = "topic_id_seq", allocationSize = 1)
     private Long id;
 
     @NotNull
