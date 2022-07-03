@@ -13,7 +13,8 @@ public class Profile {
 
     @Id
     @NotNull
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "profile_generator")
+    @SequenceGenerator(name = "profile_generator", sequenceName = "profile_id_seq", allocationSize = 1)
     private Long id;
 
     @Size(min = 3, max = 30)

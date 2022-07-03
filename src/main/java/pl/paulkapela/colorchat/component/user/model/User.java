@@ -18,7 +18,8 @@ public class User {
 
     @Id
     @NotNull
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "user_generator")
+    @SequenceGenerator(name = "user_generator", sequenceName = "user_id_seq", allocationSize = 1)
     private Long id;
 
     @Email
