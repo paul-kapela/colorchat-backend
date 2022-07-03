@@ -27,6 +27,13 @@ public class User {
     @NotNull
     private String email;
 
+    @Size(min = 3, max = 30)
+    @NotNull
+    private String username;
+
+    @Size(max = 300)
+    private String description;
+
     @NotNull
     private String password;
 
@@ -34,11 +41,6 @@ public class User {
     private ZonedDateTime createdAt;
 
     private ZonedDateTime deletedAt;
-
-    @NotNull
-    @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
-    @JoinColumn(name = "user_id", updatable = false, insertable = false)
-    private Profile profile;
 
     @ManyToMany(mappedBy = "users")
     private List<Topic> topics;
