@@ -1,8 +1,6 @@
 package pl.paulkapela.colorchat.component.message.model;
 
 import lombok.Data;
-import pl.paulkapela.colorchat.component.topic.model.Topic;
-import pl.paulkapela.colorchat.component.user.model.User;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;

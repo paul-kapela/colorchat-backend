@@ -1,5 +1,5 @@
 --liquibase formatted sql
---changeset pkapela:5
+--changeset pkapela:4
 CREATE TABLE "message" (
     "id" BIGSERIAL PRIMARY KEY,
 
