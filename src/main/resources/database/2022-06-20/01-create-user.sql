@@ -1,6 +1,6 @@
 --liquibase formatted sql
 --changeset pkapela:1
-CREATE TABLE "user" (
+CREATE TABLE "user_" (
     "id" BIGSERIAL PRIMARY KEY,
 
     "email" VARCHAR(254) UNIQUE NOT NULL,

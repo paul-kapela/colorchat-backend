@@ -13,7 +13,7 @@ CREATE TABLE "message" (
     "read_at" TIMESTAMP WITH TIME ZONE,
     "deleted_at" TIMESTAMP WITH TIME ZONE,
 
-    CONSTRAINT "fk_user" FOREIGN KEY ("user_id") REFERENCES "user"("id")
+    CONSTRAINT "fk_user" FOREIGN KEY ("user_id") REFERENCES "user_"("id")
         ON UPDATE CASCADE
         ON DELETE CASCADE,
 
