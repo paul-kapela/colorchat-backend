@@ -35,3 +35,18 @@ out/
 
 ### VS Code ###
 .vscode/
+
+### Encryption keys ###
+/src/main/resources/key/app.key
+/src/main/resources/key/app.pub
+/src/main/resources/key/keypair.pem
+
+### Encryption keys ###
+/src/main/resources/key/app.key
+/src/main/resources/key/app.pub
+/src/main/resources/key/keypair.pem
+
+### Encryption keys ###
+/src/main/resources/key/app.key
+/src/main/resources/key/app.pub
+/src/main/resources/key/keypair.pem
