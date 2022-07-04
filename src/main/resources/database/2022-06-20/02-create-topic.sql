@@ -19,7 +19,7 @@ CREATE TABLE "topic_user" (
         ON UPDATE CASCADE
         ON DELETE CASCADE,
 
-    CONSTRAINT "fk_user" FOREIGN KEY("user_id") REFERENCES  "user"("id")
+    CONSTRAINT "fk_user" FOREIGN KEY("user_id") REFERENCES  "user_"("id")
         ON UPDATE CASCADE
         ON DELETE CASCADE
 );
