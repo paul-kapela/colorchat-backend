@@ -1,4 +1,4 @@
-package pl.paulkapela.colorchat.config;
+package pl.paulkapela.colorchat.security;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
