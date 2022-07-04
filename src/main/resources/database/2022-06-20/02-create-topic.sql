@@ -1,5 +1,5 @@
 --liquibase formatted sql
---changeset pkapela:3
+--changeset pkapela:2
 CREATE TABLE "topic" (
     "id" BIGSERIAL PRIMARY KEY,
 
@@ -8,7 +8,7 @@ CREATE TABLE "topic" (
     "deleted_at" TIMESTAMP WITH TIME ZONE
 );
 
---changeset pkapela:4
+--changeset pkapela:3
 CREATE TABLE "topic_user" (
     "topic_id" BIGINT NOT NULL,
     "user_id" BIGINT NOT NULL,
@@ -19,7 +19,7 @@ CREATE TABLE "topic_user" (
         ON UPDATE CASCADE
         ON DELETE CASCADE,
 
-    CONSTRAINT "fk_user" FOREIGN KEY("user_id") REFERENCES  "user"("id")
+    CONSTRAINT "fk_user" FOREIGN KEY("user_id") REFERENCES  "user_"("id")
         ON UPDATE CASCADE
         ON DELETE CASCADE
 );

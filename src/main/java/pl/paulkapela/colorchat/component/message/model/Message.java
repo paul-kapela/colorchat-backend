@@ -1,8 +1,6 @@
 package pl.paulkapela.colorchat.component.message.model;
 
 import lombok.Data;
-import pl.paulkapela.colorchat.component.topic.model.Topic;
-import pl.paulkapela.colorchat.component.user.model.User;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -15,7 +13,8 @@ public class Message {
 
     @Id
     @NotNull
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "message_generator")
+    @SequenceGenerator(name = "message_generator", sequenceName = "message_id_seq", allocationSize = 1)
     private Long id;
 
     @Size(max = 20000)
