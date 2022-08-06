@@ -13,6 +13,7 @@ spring:
     username: colorchat
     password: colorchat
 jwt:
+  expiry: 86400
   key:
     private: classpath:key/app.key
     public: classpath:key/app.pub
