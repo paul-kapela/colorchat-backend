@@ -6,16 +6,14 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
+import pl.paulkapela.colorchat.component.user.dto.CustomUserDetails;
 import pl.paulkapela.colorchat.component.user.dto.LoginUser;
 import pl.paulkapela.colorchat.component.user.dto.NewUser;
 import pl.paulkapela.colorchat.component.user.dto.UserDTO;
 import pl.paulkapela.colorchat.component.user.mapper.UserMapper;
 import pl.paulkapela.colorchat.component.user.model.User;
 import pl.paulkapela.colorchat.component.user.repository.UserRepository;
-import pl.paulkapela.colorchat.security.authentication.CustomAuthentication;
 import pl.paulkapela.colorchat.security.util.TokenUtil;
 
 @Service
@@ -43,10 +41,11 @@ public class UserService {
             throw new BadCredentialsException("Incorrect username or password", exception);
         }
 
-        UserDetails userDetails = userDetailService.loadUserByUsername(loginUser.username());
-        String token = tokenUtil.generateToken(userDetails);
+        CustomUserDetails userDetails = userDetailService.loadUserByUsername(loginUser.username());
 
-        User authenticatedUser = userRepository.findByUsername(loginUser.username()).get();
+        String token = tokenUtil.generateToken(userDetails);
+        User authenticatedUser = userDetails.getUser();
+
         UserDTO authenticatedUserDTO = userMapper.mapToUserDTO(authenticatedUser);
 
         return ResponseEntity.ok().header(HttpHeaders.AUTHORIZATION, String.format("Bearer %s", token)).body(authenticatedUserDTO);
