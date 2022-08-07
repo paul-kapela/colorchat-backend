@@ -29,10 +29,16 @@ public class UserService {
     public ResponseEntity<UserDTO> createNewUser(NewUser newUser) {
         User createdUser = userRepository.save(userMapper.mapToNewUser(newUser));
 
-        return ResponseEntity.ok().body(userMapper.mapToUserDTO(createdUser));
+        LoginUser loginUser = userMapper.mapToLoginUser(newUser);
+
+        return authenticate(loginUser);
     }
 
     public ResponseEntity<UserDTO> authenticateUser(LoginUser loginUser) throws BadCredentialsException {
+        return authenticate(loginUser);
+    }
+
+    private ResponseEntity<UserDTO> authenticate(LoginUser loginUser) {
         UsernamePasswordAuthenticationToken authenticationRequest = new UsernamePasswordAuthenticationToken(loginUser.username(), loginUser.password());
 
         try {
