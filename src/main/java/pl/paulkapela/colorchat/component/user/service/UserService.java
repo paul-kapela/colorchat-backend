@@ -6,15 +6,16 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
-import pl.paulkapela.colorchat.component.user.dto.CustomUserDetails;
-import pl.paulkapela.colorchat.component.user.dto.LoginUser;
-import pl.paulkapela.colorchat.component.user.dto.NewUser;
-import pl.paulkapela.colorchat.component.user.dto.UserDTO;
+import pl.paulkapela.colorchat.component.user.dto.*;
 import pl.paulkapela.colorchat.component.user.mapper.UserMapper;
 import pl.paulkapela.colorchat.component.user.model.User;
 import pl.paulkapela.colorchat.component.user.repository.UserRepository;
 import pl.paulkapela.colorchat.security.util.TokenUtil;
+
+import javax.transaction.Transactional;
 
 @Service
 @RequiredArgsConstructor
@@ -36,6 +37,22 @@ public class UserService {
 
     public ResponseEntity<UserDTO> authenticateUser(LoginUser loginUser) throws BadCredentialsException {
         return authenticate(loginUser);
+    }
+
+    @Transactional
+    public ResponseEntity<UserDTO> editUserProfile(UpdateUser updateUser, Authentication authentication) throws UsernameNotFoundException {
+        String username = authentication.getName();
+
+        User userEdited = userRepository.findByUsername(username).orElseThrow(() ->
+            new UsernameNotFoundException("User not found by username")
+        );
+
+        userEdited.setUsername(updateUser.username());
+        userEdited.setDescription(updateUser.description());
+
+        UserDTO userEditedDTO = userMapper.mapToUserDTO(userEdited);
+
+        return ResponseEntity.ok().body(userEditedDTO);
     }
 
     private ResponseEntity<UserDTO> authenticate(LoginUser loginUser) {

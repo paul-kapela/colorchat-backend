@@ -2,11 +2,14 @@ package pl.paulkapela.colorchat.component.user.controller;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import pl.paulkapela.colorchat.component.user.dto.LoginUser;
 import pl.paulkapela.colorchat.component.user.dto.NewUser;
+import pl.paulkapela.colorchat.component.user.dto.UpdateUser;
 import pl.paulkapela.colorchat.component.user.dto.UserDTO;
 import pl.paulkapela.colorchat.component.user.service.UserService;
 
@@ -26,5 +29,10 @@ public class UserController {
     @PostMapping(path = "/login")
     public ResponseEntity<UserDTO> authenticateUser(@Valid @RequestBody LoginUser loginUser) {
         return userService.authenticateUser(loginUser);
+    }
+
+    @PostMapping(path = "/users")
+    public ResponseEntity<UserDTO> editUserProfile(@Valid @RequestBody UpdateUser updateUser, Authentication authentication) {
+        return userService.editUserProfile(updateUser, authentication);
     }
 }
