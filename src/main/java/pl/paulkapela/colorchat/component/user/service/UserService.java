@@ -39,6 +39,16 @@ public class UserService {
         return authenticate(loginUser);
     }
 
+    public ResponseEntity<UserDTO> viewUserProfile(String username) throws UsernameNotFoundException {
+        User searchedUser = userRepository.findByUsername(username).orElseThrow(() ->
+            new UsernameNotFoundException("User not found by username")
+        );
+
+        UserDTO searchedUserDTO = userMapper.mapToUserDTO(searchedUser);
+
+        return ResponseEntity.ok().body(searchedUserDTO);
+    }
+
     @Transactional
     public ResponseEntity<UserDTO> editUserProfile(UpdateUser updateUser, Authentication authentication) throws UsernameNotFoundException {
         String username = authentication.getName();
