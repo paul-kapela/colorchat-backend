@@ -33,7 +33,13 @@ public class SecurityConfig {
         http
                 .authorizeHttpRequests((authorize) ->
                         authorize
-                                .antMatchers("/login", "/register").permitAll()
+                                .antMatchers(
+                                        "/swagger-ui/**",
+                                        "/v2/api-docs",
+                                        "/webjars/**",
+                                        "/swagger-resources/**",
+                                        "/login",
+                                        "/register").permitAll()
                                 .anyRequest().authenticated()
                 )
                 .httpBasic(Customizer.withDefaults())
