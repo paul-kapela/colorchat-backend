@@ -2,7 +2,6 @@ package pl.paulkapela.colorchat.component.user.model;
 
 import lombok.Data;
 import pl.paulkapela.colorchat.component.message.model.Message;
-import pl.paulkapela.colorchat.component.profile.model.Profile;
 import pl.paulkapela.colorchat.component.topic.model.Topic;
 
 import javax.persistence.*;
