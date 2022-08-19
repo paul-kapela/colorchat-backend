@@ -20,6 +20,10 @@ public class Topic {
     private Long id;
 
     @NotNull
+    @Enumerated(EnumType.STRING)
+    private TopicType type;
+
+    @NotNull
     private ZonedDateTime createdAt;
     private ZonedDateTime updatedAt;
     private ZonedDateTime deletedAt;
