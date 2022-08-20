@@ -7,7 +7,9 @@ import pl.paulkapela.colorchat.component.user.model.User;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.time.ZonedDateTime;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Data
@@ -34,7 +36,7 @@ public class Topic {
             joinColumns = @JoinColumn(name = "topic_id"),
             inverseJoinColumns = @JoinColumn(name = "user_id")
     )
-    private List<User> users;
+    private Set<User> users = new HashSet<>();
 
     @OneToMany
     @JoinColumn(name = "topic_id", updatable = false, insertable = false)
