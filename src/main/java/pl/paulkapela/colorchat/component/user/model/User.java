@@ -9,7 +9,9 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.time.ZonedDateTime;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "user_")
@@ -43,7 +45,7 @@ public class User {
     private ZonedDateTime deletedAt;
 
     @ManyToMany(mappedBy = "users")
-    private List<Topic> topics;
+    private Set<Topic> topics = new HashSet<>();
 
     @OneToMany
     @JoinColumn(name = "user_id", updatable = false, insertable = false)
