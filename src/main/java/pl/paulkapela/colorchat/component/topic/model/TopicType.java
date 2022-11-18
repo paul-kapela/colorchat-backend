@@ -1,15 +1,16 @@
 package pl.paulkapela.colorchat.component.topic.model;
 
 public enum TopicType {
-    DIRECT('d'),
-    GROUP('g');
+    DIRECT("d"),
+    GROUP("g");
 
-    private final Character symbol;
-    TopicType(Character symbol) {
+    private final String symbol;
+
+    TopicType(String symbol) {
         this.symbol = symbol;
     }
 
-    public Character getSymbol() {
+    public String getSymbol() {
         return symbol;
     }
 }
