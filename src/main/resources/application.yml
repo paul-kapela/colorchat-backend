@@ -12,6 +12,7 @@ spring:
     url: jdbc:postgresql://localhost:5432/colorchat
     username: colorchat
     password: colorchat
+  security.filter.order: 10
 jwt:
   expiry: 86400
   key:

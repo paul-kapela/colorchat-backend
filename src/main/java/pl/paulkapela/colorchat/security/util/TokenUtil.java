@@ -29,6 +29,7 @@ public class TokenUtil {
     public Instant extractExpiration(String token) {
         return decodeToken(token).getExpiresAt();
     }
+
     public String generateToken(UserDetails userDetails) {
         Instant now = Instant.now();
 
