@@ -6,10 +6,10 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
-import pl.paulkapela.colorchat.component.user.service.CustomUserDetailService;
 import pl.paulkapela.colorchat.security.util.TokenUtil;
 
 import javax.servlet.FilterChain;
@@ -23,35 +23,35 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class JwtRequestFilter extends OncePerRequestFilter {
 
-    @Autowired
-    private final CustomUserDetailService userDetailService;
-
-    @Autowired
+    private final UserDetailsService userDetailService;
     private final TokenUtil tokenUtil;
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
-        final Optional<String> authorizationHeader = Optional.ofNullable(request.getHeader(HttpHeaders.AUTHORIZATION));
+        final String authorizationHeader = request.getHeader(HttpHeaders.AUTHORIZATION);
         final String bearerStart = "Bearer ";
 
-        String username = null;
-        String token = null;
-
-        if (authorizationHeader.isPresent() && authorizationHeader.get().startsWith(bearerStart)) {
-            token = authorizationHeader.get().substring(bearerStart.length());
-            username = tokenUtil.extractSubject(token);
+        if (authorizationHeader == null || !authorizationHeader.startsWith(bearerStart)) {
+            filterChain.doFilter(request, response);
+            return;
         }
+
+        final String token = authorizationHeader.substring(bearerStart.length());
+        final String username = tokenUtil.extractSubject(token);
 
         if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
             UserDetails userDetails = userDetailService.loadUserByUsername(username);
 
-            if (tokenUtil.validateToken(token, userDetails)) {
-                UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
-
-                authenticationToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
-
-                SecurityContextHolder.getContext().setAuthentication(authenticationToken);
+            if (!tokenUtil.validateToken(token, userDetails)) {
+                filterChain.doFilter(request, response);
+                return;
             }
+
+            UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(userDetails, null, null);
+
+            authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
+
+            SecurityContextHolder.getContext().setAuthentication(authentication);
         }
 
         filterChain.doFilter(request, response);

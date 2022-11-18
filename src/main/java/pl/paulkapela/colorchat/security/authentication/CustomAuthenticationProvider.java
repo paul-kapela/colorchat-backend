@@ -7,33 +7,30 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationProvider;
 import org.springframework.stereotype.Component;
-import pl.paulkapela.colorchat.component.user.service.CustomUserDetailService;
 
 @Component
 @RequiredArgsConstructor
 public class CustomAuthenticationProvider implements AuthenticationProvider {
 
-    private final CustomUserDetailService userDetailService;
+    private final UserDetailsService userDetailService;
     private final PasswordEncoder passwordEncoder;
 
     @Override
     public Authentication authenticate(Authentication authentication) throws AuthenticationException {
         String username = authentication.getName();
-        String password = String.valueOf(authentication.getCredentials());
+        String password = String.valueOf(authentication.getCredentials().toString());
 
         UserDetails userDetails = userDetailService.loadUserByUsername(username);
 
-        if (passwordEncoder.matches(password, userDetails.getPassword())) {
-            return new CustomAuthentication(username, password);
-        }
-
-        throw new BadCredentialsException("Authentication failed!");
+        return new CustomAuthentication(userDetails, password);
     }
 
     @Override
     public boolean supports(Class<?> authentication) {
-        return UsernamePasswordAuthenticationToken.class.equals(authentication);
+        return JwtAuthenticationProvider.class.equals(authentication);
     }
 }
